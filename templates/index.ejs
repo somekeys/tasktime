@@ -113,6 +113,7 @@
       headname.innerHTML = "";
       mytimer.innerHTML = "0h0m0s";
       curTask.ss = Date.now();
+      curTask.zone = new Date().getTimezoneOffset();
 
       fetch("", {
         method: "POST",

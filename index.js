@@ -72,12 +72,16 @@ async function lookUpById(id) {
 
 async function getTaskTable(itemList) {
   let newrow = "";
+  let zo = NaN;
 
   await itemList.forEach(curTask => {
+    if(Number.isNaN(zo)){
+      zo = curTask.zone;
+    }
     newrow += "<tr>";
-    newrow += "<th>" + curTask.name + "</th>" + "<th>" + curTask.category + "</th>" + "<th>" + timeformat(curTask.ini) + "</th>";
+    newrow += "<th>" + curTask.name + "</th>" + "<th>" + curTask.category + "</th>" + "<th>" + timeformat(curTask.ini,zo) + "</th>";
 
-    newrow += "<th>" + timeformat(curTask.ss) + "</th>";
+    newrow += "<th>" + timeformat(curTask.ss,zo) + "</th>";
 
     newrow += "<th>" + nowformat(String(curTask.ss - curTask.ini)) + "</th>";
     newrow += "</tr>";
@@ -98,8 +102,9 @@ function nowformat(mills) {
 
 }
 
-function timeformat(xxt) {
-  var kn = new Date(xxt);
+function timeformat(xxt,zo) {
+  let myzo = new Date().getTimezoneOffset();
+  var kn = new Date(xxt-myzo+zo);
   return kn.toString().substring(0, 25);
 
 }
