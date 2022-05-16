@@ -104,7 +104,7 @@ function nowformat(mills) {
 
 function timeformat(xxt,zo) {
   let myzo = new Date().getTimezoneOffset();
-  var kn = new Date(xxt+(-myzo+zo)*60000);
+  var kn = new Date(xxt-(-myzo+zo)*60000);
   return kn.toString().substring(0, 25);
 
 }
