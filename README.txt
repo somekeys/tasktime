@@ -1,17 +1,12 @@
 
-    Team Members:
-    Yuze Hu
-    directory id: forioop
-
+ 
     APP LINK:
     https://tasklog.herokuapp.com/
     
     App Description:
     This website allows the users to record the time spend for thier tasks.
 
-    API links:
-    https://catfact.ninja/fact
+   
 
-    YouTube Demo Video:
 
 
