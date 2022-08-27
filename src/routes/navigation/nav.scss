@@ -1,0 +1,18 @@
+.navigation {
+    display: flex;
+    height: fit-content;
+    text-align: justify;
+    background-color: #333;
+    padding-left: 15px;
+    .nav-right-links{
+        color: #e2e2e2;
+        margin-left: auto;
+        font-weight: 600;
+        margin-right: 15px;
+    }
+    .nav-left-name{
+        margin-right: auto;
+        color: #e2e2e2;
+
+    }
+}

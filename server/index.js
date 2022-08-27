@@ -1,35 +1,28 @@
 let express = require("express");
 let http = require("http");
 let path = require("path");
-const { nanoid } = require('nanoid');
-var cookieParser = require('cookie-parser');
 let bodyParser = require("body-parser");
+const cors = require("cors");
 
 let app = express();
-app.set("views", path.resolve(__dirname, "templates"));
-app.set("view engine", "ejs");
-app.use(cookieParser());
+app.use(cors());
 app.use(bodyParser.json());
 
 const port = process.env.PORT || 5000;
+app.get('/u/:userid', async function (req, res) {
 
-app.get('/', async function (req, res) {
-  if (!req.cookies.myid) {
-    res.cookie("myid", nanoid());
-  } else {
-    console.log("user:" + req.cookies.myid);
-  }
-  let myt = await getTaskTable(await lookUpById(req.cookies.myid));
 
-  res.render('index', { taskTable: myt });
+ 
+  const myt = await lookUpById( req.params["userid"]);
+
+  res.send(await getArray(myt));
 });
 
-app.post('/', async function (req, res) {
+app.post('/u/:userid/add', async function (req, res) {
   let task = req.body;
-  task.userid = req.cookies.myid;
+  task.userid = req.params["userid"];
   await insertTask(task);
-  let myt = await getTaskTable(await lookUpById(req.cookies.myid));
-  res.send(myt);
+  res.send(await getArray(await lookUpById( req.params["userid"])));
 });
 
 
@@ -69,6 +62,29 @@ async function lookUpById(id) {
 
   return result
 }
+async function getArray(itemList) {
+ 
+
+  // await itemList.forEach(curTask => {
+  //   if(Number.isNaN(zo)){
+  //     zo = curTask.zone;
+  //   }
+  //   newrow += "<tr>";
+  //   newrow += "<th>" + curTask.name + "</th>" + "<th>" + curTask.category + "</th>" + "<th>" + timeformat(curTask.ini,zo) + "</th>";
+
+  //   newrow += "<th>" + timeformat(curTask.ss,zo) + "</th>";
+
+  //   newrow += "<th>" + nowformat(String(curTask.ss - curTask.ini)) + "</th>";
+  //   newrow += "</tr>";
+
+  // });
+  const mya = await itemList.toArray();
+  console.log(mya);
+  return mya;
+
+
+}
+
 
 async function getTaskTable(itemList) {
   let newrow = "";
