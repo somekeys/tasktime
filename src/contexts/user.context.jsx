@@ -55,7 +55,7 @@ export const UserProvider = ({ children }) => {
   useEffect( () => {
    
      if(currentUser){
-        fetch(`http://localhost:5000/u/${currentUser}`)
+        fetch(`http://api.timelog.futakey.com/u/${currentUser}`)
         .then((response) => response.json())
         .then((record) => setLogs(record));
       }else{
@@ -68,7 +68,7 @@ export const UserProvider = ({ children }) => {
   const addItemToLogs = (curTask) => {
     console.log("Here we add task:");
     console.log(curTask);
-    fetch(`http://localhost:5000/u/${currentUser}/add`, {
+    fetch(`http://api.timelog.futakey.com/u/${currentUser}/add`, {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(curTask)
